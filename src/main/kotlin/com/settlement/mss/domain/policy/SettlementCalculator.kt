@@ -1,4 +1,4 @@
-package com.settlement.mss.domain.service
+package com.settlement.mss.domain.policy
 
 import com.settlement.mss.domain.model.Merchant
 import com.settlement.mss.domain.model.Order
