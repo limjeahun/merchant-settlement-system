@@ -1,7 +1,9 @@
 package com.settlement.mss.adapter.`in`.worker
 
 import com.settlement.mss.application.usecase.ReportService
+import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.stereotype.Component
+import java.math.BigDecimal
 
 @Component
 class ReportEventWorker(

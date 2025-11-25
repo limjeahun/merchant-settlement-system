@@ -49,6 +49,9 @@ dependencies {
 
     runtimeOnly("com.mysql:mysql-connector-j")
 
+    // 이메일 발송용
+    implementation("org.springframework.boot:spring-boot-starter-mail")
+
     // Test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.batch:spring-batch-test")
