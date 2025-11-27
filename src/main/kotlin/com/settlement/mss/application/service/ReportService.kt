@@ -1,7 +1,6 @@
-package com.settlement.mss.application.usecase
+package com.settlement.mss.application.service
 
 import com.settlement.mss.domain.port.out.AiAnalysisPort
-import com.settlement.mss.domain.port.out.NotificationPort
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 

@@ -1,4 +1,4 @@
-package com.settlement.mss.application.usecase
+package com.settlement.mss.application.service
 
 import com.settlement.mss.domain.model.Settlement
 import com.settlement.mss.domain.policy.SettlementCalculator

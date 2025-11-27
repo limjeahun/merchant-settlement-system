@@ -1,6 +1,6 @@
 package com.settlement.mss.adapter.`in`.batch
 
-import com.settlement.mss.application.usecase.SettlementService
+import com.settlement.mss.application.service.SettlementService
 import com.settlement.mss.domain.model.Settlement
 import com.settlement.mss.domain.port.out.LoadMerchantPort
 import com.settlement.mss.domain.port.out.PublishEventPort
