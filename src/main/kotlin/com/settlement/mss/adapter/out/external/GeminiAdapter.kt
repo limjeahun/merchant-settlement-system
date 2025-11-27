@@ -1,6 +1,6 @@
 package com.settlement.mss.adapter.out.external
 
-import com.settlement.mss.domain.port.out.AiAnalysisPort
+import com.settlement.mss.application.port.out.AiAnalysisPort
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Component

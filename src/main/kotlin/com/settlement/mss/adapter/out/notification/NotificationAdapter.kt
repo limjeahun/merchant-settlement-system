@@ -1,7 +1,7 @@
 package com.settlement.mss.adapter.out.notification
 
 import com.settlement.mss.adapter.out.notification.dto.SlackMessageDto
-import com.settlement.mss.domain.port.out.NotificationPort
+import com.settlement.mss.application.port.out.NotificationPort
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.MediaType

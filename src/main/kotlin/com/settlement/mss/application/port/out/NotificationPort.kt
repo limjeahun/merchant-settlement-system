@@ -1,4 +1,4 @@
-package com.settlement.mss.domain.port.out
+package com.settlement.mss.application.port.out
 
 import java.math.BigDecimal
 
@@ -8,7 +8,7 @@ interface NotificationPort {
      */
     fun sendSettlementReport(
         merchantName: String,
-        email: String, // 가맹점 이메일 주소
+        email: String,
         reportContent: String
     )
 

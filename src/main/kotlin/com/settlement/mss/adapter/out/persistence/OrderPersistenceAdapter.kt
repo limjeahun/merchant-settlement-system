@@ -2,8 +2,8 @@ package com.settlement.mss.adapter.out.persistence
 
 import com.settlement.mss.adapter.out.persistence.mapper.OrderMapper
 import com.settlement.mss.adapter.out.persistence.repository.OrderJpaRepository
+import com.settlement.mss.application.port.out.LoadOrderPort
 import com.settlement.mss.domain.model.Order
-import com.settlement.mss.domain.port.out.LoadOrderPort
 import org.springframework.stereotype.Component
 import java.time.LocalDate
 

@@ -1,6 +1,6 @@
 package com.settlement.mss.adapter.out.message
 
-import com.settlement.mss.domain.port.out.PublishEventPort
+import com.settlement.mss.application.port.out.PublishEventPort
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.stereotype.Component
 

@@ -1,16 +1,18 @@
 package com.settlement.mss.application.service
 
-import com.settlement.mss.domain.port.out.AiAnalysisPort
+import com.settlement.mss.application.port.`in`.GenerateReportUseCase
+import com.settlement.mss.application.port.out.AiAnalysisPort
+import com.settlement.mss.application.port.out.NotificationPort
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 
 @Service
 class ReportService(
-    private val aiAnalysisPort: AiAnalysisPort,
-    // private val notificationPort: NotificationPort,
-) {
+    private val aiAnalysisPort  : AiAnalysisPort,
+    private val notificationPort: NotificationPort,
+): GenerateReportUseCase {
     // Worker에서 호출
-    fun generateAndSendReport(merchantName: String, totalSales: BigDecimal, payout: BigDecimal) {
+    override fun generateAndSendReport(merchantName: String, totalSales: BigDecimal, payout: BigDecimal) {
 
         // 1. 프롬프트 구성 (여기가 핵심 전략!)
         val systemRole = "당신은 10년 차 핀테크 정산 전문가이자 친절한 비서입니다."
