@@ -1,6 +1,6 @@
-package com.settlement.mss.adapter.out.persistence.mapper
+package com.settlement.mss.adapter.out.persistence.jpa.mapper
 
-import com.settlement.mss.adapter.out.persistence.entity.MerchantEntity
+import com.settlement.mss.adapter.out.persistence.jpa.entity.MerchantEntity
 import com.settlement.mss.domain.model.Merchant
 import com.settlement.mss.domain.model.SettlementCycle
 import org.springframework.stereotype.Component

@@ -3,6 +3,8 @@ package com.settlement.mss.application.service
 import com.settlement.mss.application.port.`in`.GenerateReportUseCase
 import com.settlement.mss.application.port.out.AiAnalysisPort
 import com.settlement.mss.application.port.out.NotificationPort
+import com.settlement.mss.application.port.out.SaveReportPort
+import com.settlement.mss.domain.model.SettlementReport
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 
@@ -10,10 +12,14 @@ import java.math.BigDecimal
 class ReportService(
     private val aiAnalysisPort  : AiAnalysisPort,
     private val notificationPort: NotificationPort,
+    private val saveReportPort  : SaveReportPort,
 ): GenerateReportUseCase {
-    // Worker에서 호출
-    override fun generateAndSendReport(merchantName: String, totalSales: BigDecimal, payout: BigDecimal) {
-
+    override fun generateAndSendReport(
+        merchantId: Long,
+        merchantName: String,
+        totalSales: BigDecimal,
+        payout: BigDecimal)
+    {
         // 1. 프롬프트 구성 (여기가 핵심 전략!)
         val systemRole = "당신은 10년 차 핀테크 정산 전문가이자 친절한 비서입니다."
         val prompt = """
@@ -21,6 +27,7 @@ class ReportService(
             '$merchantName' 가맹점 사장님께 이번 주 정산 결과를 브리핑해야 합니다.
             
             [데이터]
+            - 가맹점: $merchantName
             - 총 매출: ${totalSales}원
             - 실 지급액: ${payout}원
             
@@ -32,6 +39,15 @@ class ReportService(
 
         // 2. 포트를 통해 AI 호출 (인프라 기술 몰라도 됨)
         val aiComment = aiAnalysisPort.analyze(systemRole, prompt)
+
+        val report = SettlementReport(
+            merchantId = merchantId,
+            merchantName = merchantName,
+            totalSales = totalSales,
+            payoutAmount = payout,
+            reportContent = aiComment
+        )
+        saveReportPort.saveReport(report)
 
         // 3. 결과 발송
         //notificationPort.send(merchantName, aiComment)

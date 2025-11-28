@@ -1,6 +1,6 @@
-package com.settlement.mss.adapter.out.persistence.mapper
+package com.settlement.mss.adapter.out.persistence.jpa.mapper
 
-import com.settlement.mss.adapter.out.persistence.entity.OrderEntity
+import com.settlement.mss.adapter.out.persistence.jpa.entity.OrderEntity
 import com.settlement.mss.domain.model.Order
 import org.springframework.stereotype.Component
 

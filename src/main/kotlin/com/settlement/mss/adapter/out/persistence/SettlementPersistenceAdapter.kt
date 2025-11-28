@@ -1,7 +1,7 @@
 package com.settlement.mss.adapter.out.persistence
 
-import com.settlement.mss.adapter.out.persistence.mapper.SettlementMapper
-import com.settlement.mss.adapter.out.persistence.repository.SettlementJpaRepository
+import com.settlement.mss.adapter.out.persistence.jpa.mapper.SettlementMapper
+import com.settlement.mss.adapter.out.persistence.jpa.repository.SettlementJpaRepository
 import com.settlement.mss.application.port.out.RecordSettlementPort
 import com.settlement.mss.domain.model.Settlement
 import org.springframework.stereotype.Component

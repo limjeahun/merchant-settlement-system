@@ -47,6 +47,12 @@ spring:
       port: 6379
       # password: 1111
 
+    # ===============================================
+    # mongodb
+    # ===============================================
+    mongodb:
+      uri: mongodb://admin:1111@localhost:27017/settlement_report_db?authSource=admin
+
   # ===============================================
   # SPRING CACHE CONFIGURATION
   # ===============================================

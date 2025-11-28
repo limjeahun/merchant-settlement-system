@@ -1,6 +1,6 @@
-package com.settlement.mss.adapter.out.persistence.mapper
+package com.settlement.mss.adapter.out.persistence.jpa.mapper
 
-import com.settlement.mss.adapter.out.persistence.entity.SettlementEntity
+import com.settlement.mss.adapter.out.persistence.jpa.entity.SettlementEntity
 import com.settlement.mss.domain.model.Settlement
 import com.settlement.mss.domain.model.SettlementStatus
 import org.springframework.stereotype.Component

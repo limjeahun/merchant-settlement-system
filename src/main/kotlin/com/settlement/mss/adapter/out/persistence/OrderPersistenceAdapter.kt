@@ -1,7 +1,7 @@
 package com.settlement.mss.adapter.out.persistence
 
-import com.settlement.mss.adapter.out.persistence.mapper.OrderMapper
-import com.settlement.mss.adapter.out.persistence.repository.OrderJpaRepository
+import com.settlement.mss.adapter.out.persistence.jpa.mapper.OrderMapper
+import com.settlement.mss.adapter.out.persistence.jpa.repository.OrderJpaRepository
 import com.settlement.mss.application.port.out.LoadOrderPort
 import com.settlement.mss.domain.model.Order
 import org.springframework.stereotype.Component

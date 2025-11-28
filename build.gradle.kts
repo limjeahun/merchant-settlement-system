@@ -47,12 +47,11 @@ dependencies {
     // Redis Lock
     implementation("org.springframework.boot:spring-boot-starter-integration")
     implementation("org.springframework.integration:spring-integration-redis")
-
     runtimeOnly("com.mysql:mysql-connector-j")
-
     // 이메일 발송용
     implementation("org.springframework.boot:spring-boot-starter-mail")
-
+    // MongoDB
+    implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
     // Test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.batch:spring-batch-test")

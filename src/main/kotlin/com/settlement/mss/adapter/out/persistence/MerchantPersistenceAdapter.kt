@@ -1,7 +1,7 @@
 package com.settlement.mss.adapter.out.persistence
 
-import com.settlement.mss.adapter.out.persistence.mapper.MerchantMapper
-import com.settlement.mss.adapter.out.persistence.repository.MerchantJpaRepository
+import com.settlement.mss.adapter.out.persistence.jpa.mapper.MerchantMapper
+import com.settlement.mss.adapter.out.persistence.jpa.repository.MerchantJpaRepository
 import com.settlement.mss.application.port.out.LoadMerchantPort
 import com.settlement.mss.domain.model.Merchant
 import com.settlement.mss.domain.model.SettlementCycle

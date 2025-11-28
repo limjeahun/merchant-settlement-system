@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.MediaType
 import org.springframework.mail.SimpleMailMessage
 import org.springframework.mail.javamail.JavaMailSender
+import org.springframework.stereotype.Component
 import org.springframework.web.client.RestClient
 import java.math.BigDecimal
 
+@Component
 class NotificationAdapter(
     private val mailSender: JavaMailSender, // Spring Boot Mail Starter 필요
     @Value("\${slack.webhook.url}") private val slackWebhookUrl: String,

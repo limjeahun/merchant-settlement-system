@@ -1,4 +1,4 @@
-package com.settlement.mss.adapter.out.persistence.entity
+package com.settlement.mss.adapter.out.persistence.jpa.entity
 
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
