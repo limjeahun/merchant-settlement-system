@@ -1,8 +1,6 @@
 package com.settlement.mss.adapter.`in`.batch
 
-import com.settlement.mss.application.port.`in`.CalculateSettlementUseCase
-import com.settlement.mss.application.port.`in`.FindSettlementTargetUseCase
-import com.settlement.mss.application.port.`in`.ProcessSettlementResultUseCase
+import com.settlement.mss.application.port.`in`.*
 import com.settlement.mss.domain.model.Settlement
 import org.springframework.batch.core.Job
 import org.springframework.batch.core.Step
@@ -15,21 +13,25 @@ import org.springframework.batch.item.support.IteratorItemReader
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.transaction.PlatformTransactionManager
+import java.time.DayOfWeek
 import java.time.LocalDate
 
 @Configuration
 class SettlementBatchConfig(
-    private val jobRepository     : JobRepository,
-    private val transactionManager: PlatformTransactionManager,
-    private val findUseCase       : FindSettlementTargetUseCase,
-    private val calculateUseCase  : CalculateSettlementUseCase,
-    private val processUseCase    : ProcessSettlementResultUseCase,
+    private val jobRepository              : JobRepository,
+    private val transactionManager         : PlatformTransactionManager,
+    private val findTargetUseCase          : FindSettlementTargetUseCase,
+    private val calculateUseCase           : CalculateSettlementUseCase,
+    private val saveUseCase                : SaveSettlementUseCase,
+    private val findDailySettlementsUseCase: FindDailySettlementsUseCase,
+    private val sendReportEventUseCase     : SendReportEventUseCase,
 ) {
 
     @Bean
     fun settlementJob(): Job {
         return JobBuilder("dailySettlementJob", jobRepository)
-            .start(settlementStep())
+            .start(settlementStep()) // Step 1: 정산 & 저장
+            .next(reportStep())      // Step 2: 리포트 발행
             .build()
     }
 
@@ -46,8 +48,7 @@ class SettlementBatchConfig(
     @Bean
     fun merchantIdReader(): IteratorItemReader<Long> {
         val today = LocalDate.now()
-        val targetIds = findUseCase.findTargetMerchants(today)
-        return IteratorItemReader(targetIds)
+        return IteratorItemReader(findTargetUseCase.findTargetMerchants(today))
     }
 
     @Bean
@@ -61,9 +62,41 @@ class SettlementBatchConfig(
     @Bean
     fun settlementWriter(): ItemWriter<Settlement> {
         return ItemWriter { chunk ->
-            processUseCase.processSettlementResult(chunk.items.toList())
+            saveUseCase.saveSettlements(chunk.items.toList())
         }
     }
 
+    @Bean
+    fun reportStep(): Step {
+        return StepBuilder("reportStep", jobRepository)
+            .chunk<Settlement, Settlement>(100, transactionManager)
+            .reader(reportReader())  // 오늘 저장된 정산 데이터 조회
+            .writer(reportWriter())  // 이벤트 발행
+            .build()
+    }
+
+    @Bean
+    fun reportReader(): IteratorItemReader<Settlement> {
+        val today = LocalDate.now()
+
+        // 월요일이 아니면 빈 리더 반환 (Step 실행 즉시 종료)
+        if (today.dayOfWeek != DayOfWeek.MONDAY) {
+            return IteratorItemReader(emptyList())
+        }
+
+        // T-7일자 정산 데이터를 조회 (Step 1에서 저장한 데이터)
+        val targetDate = today.minusDays(7)
+        val settlements = findDailySettlementsUseCase.findSettlementsByDate(targetDate)
+
+        return IteratorItemReader(settlements)
+    }
+
+    @Bean
+    fun reportWriter(): ItemWriter<Settlement> {
+        return ItemWriter { chunk ->
+            // 이미 Reader에서 날짜 체크를 했으므로 바로 전송
+            sendReportEventUseCase.sendReportEvent(chunk.items.toList())
+        }
+    }
 
 }

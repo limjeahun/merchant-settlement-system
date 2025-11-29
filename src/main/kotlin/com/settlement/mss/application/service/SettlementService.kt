@@ -2,10 +2,9 @@ package com.settlement.mss.application.service
 
 import com.settlement.mss.application.port.`in`.CalculateSettlementUseCase
 import com.settlement.mss.application.port.`in`.FindSettlementTargetUseCase
-import com.settlement.mss.application.port.`in`.ProcessSettlementResultUseCase
+import com.settlement.mss.application.port.`in`.SaveSettlementUseCase
 import com.settlement.mss.application.port.out.LoadMerchantPort
 import com.settlement.mss.application.port.out.LoadOrderPort
-import com.settlement.mss.application.port.out.PublishEventPort
 import com.settlement.mss.application.port.out.RecordSettlementPort
 import com.settlement.mss.domain.model.Settlement
 import com.settlement.mss.domain.policy.SettlementCalculator
@@ -20,9 +19,8 @@ class SettlementService(
     private val loadMerchantPort    : LoadMerchantPort,
     private val loadOrderPort       : LoadOrderPort,
     private val recordSettlementPort: RecordSettlementPort,
-    private val publishEventPort    : PublishEventPort,
     private val calculator          : SettlementCalculator,
-) : FindSettlementTargetUseCase, CalculateSettlementUseCase, ProcessSettlementResultUseCase {
+) : FindSettlementTargetUseCase, CalculateSettlementUseCase, SaveSettlementUseCase {
 
     @Transactional(readOnly = true)
     override fun findTargetMerchants(date: LocalDate): List<Long> {
@@ -38,7 +36,11 @@ class SettlementService(
         return calculator.calculate(merchant, orders, targetDate)
     }
 
-    @Transactional
+    override fun saveSettlements(settlements: List<Settlement>) {
+        recordSettlementPort.saveAll(settlements)
+    }
+
+    /*@Transactional
     override fun processSettlementResult(settlements: List<Settlement>) {
         recordSettlementPort.saveAll(settlements)
 
@@ -53,6 +55,6 @@ class SettlementService(
                 )
             }
         }
-    }
+    }*/
 
 }
