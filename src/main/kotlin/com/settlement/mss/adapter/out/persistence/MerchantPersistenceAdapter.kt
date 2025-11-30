@@ -21,7 +21,6 @@ class MerchantPersistenceAdapter(
     }
 
     override fun findSettlementDueMerchants(date: LocalDate): List<Long> {
-        // QueryDSL이 없다면 모든 가맹점을 가져와서 필터링 (데이터 많으면 QueryDSL 필수)
         return merchantRepository.findAll().filter { entity ->
             val cycle = SettlementCycle.valueOf(entity.settlementCycle)
             isDue(cycle, date)
