@@ -26,4 +26,13 @@ class SettlementPersistenceAdapter(
         // 2. Entity -> Domain Model 변환 후 반환
         return entities.map { settlementMapper.toDomain(it) }
     }
+
+    override fun findSettlementsByDateRange(
+        merchantId: Long,
+        startDate: LocalDate,
+        endDate: LocalDate
+    ): List<Settlement> {
+        return settlementRepository.findAllByMerchantIdAndTargetDateBetween(merchantId, startDate, endDate)
+            .map { settlementMapper.toDomain(it) }
+    }
 }

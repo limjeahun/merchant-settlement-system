@@ -11,7 +11,6 @@ import com.settlement.mss.domain.policy.SettlementCalculator
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.time.DayOfWeek
 import java.time.LocalDate
 
 @Service
@@ -39,22 +38,5 @@ class SettlementService(
     override fun saveSettlements(settlements: List<Settlement>) {
         recordSettlementPort.saveAll(settlements)
     }
-
-    /*@Transactional
-    override fun processSettlementResult(settlements: List<Settlement>) {
-        recordSettlementPort.saveAll(settlements)
-
-        val today = LocalDate.now()
-        if (today.dayOfWeek == DayOfWeek.MONDAY) {
-            settlements.forEach { settlement ->
-                publishEventPort.sendReportEvent(
-                    merchantId = settlement.merchantId,
-                    merchantName = "Merchant_${settlement.merchantId}",
-                    startDate = settlement.targetDate.minusDays(6).toString(),
-                    endDate = settlement.targetDate.toString()
-                )
-            }
-        }
-    }*/
 
 }

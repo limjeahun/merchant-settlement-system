@@ -2,25 +2,42 @@ package com.settlement.mss.application.service
 
 import com.settlement.mss.application.port.`in`.GenerateReportUseCase
 import com.settlement.mss.application.port.out.AiAnalysisPort
+import com.settlement.mss.application.port.out.LoadSettlementPort
 import com.settlement.mss.application.port.out.NotificationPort
 import com.settlement.mss.application.port.out.SaveReportPort
 import com.settlement.mss.domain.model.SettlementReport
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.math.BigDecimal
+import java.time.LocalDate
 
 @Service
 class ReportService(
-    private val aiAnalysisPort  : AiAnalysisPort,
-    private val notificationPort: NotificationPort,
-    private val saveReportPort  : SaveReportPort,
+    private val aiAnalysisPort    : AiAnalysisPort,
+    private val notificationPort  : NotificationPort,
+    private val saveReportPort    : SaveReportPort,
+    private val loadSettlementPort: LoadSettlementPort,
 ): GenerateReportUseCase {
+
+    @Transactional(readOnly = true)
     override fun generateAndSendReport(
-        merchantId: Long,
+        merchantId  : Long,
         merchantName: String,
-        totalSales: BigDecimal,
-        payout: BigDecimal)
-    {
-        // 1. 프롬프트 구성 (여기가 핵심 전략!)
+        startDate: LocalDate,
+        endDate: LocalDate
+    ) {
+        // 1. 정산 데이터 조회
+        val settlements = loadSettlementPort.findSettlementsByDateRange(merchantId, startDate, endDate)
+        // 정산 내역이 없으면 리포트 스킵하거나 "내역 없음" 리포트 발송
+        if (settlements.isEmpty()) {
+            return
+        }
+
+        // 2. 데이터 합산
+        val totalSales = settlements.fold(BigDecimal.ZERO) { acc, s -> acc.add(s.totalOrderAmount) }
+        val payout     = settlements.fold(BigDecimal.ZERO) { acc, s -> acc.add(s.payoutAmount) }
+
+        // 3. 프롬프트 구성 (여기가 핵심 전략!)
         val systemRole = "당신은 10년 차 핀테크 정산 전문가이자 친절한 비서입니다."
         val prompt = """
             [상황]

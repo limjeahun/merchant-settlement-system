@@ -1,12 +1,12 @@
 package com.settlement.mss.application.port.`in`
 
-import java.math.BigDecimal
+import java.time.LocalDate
 
 interface GenerateReportUseCase {
     fun generateAndSendReport(
         merchantId: Long,
         merchantName: String,
-        totalSales: BigDecimal,
-        payout: BigDecimal
+        startDate: LocalDate,
+        endDate: LocalDate
     )
 }
