@@ -9,7 +9,8 @@ class Order(
     val orderedAt       : LocalDateTime,
     val amount          : BigDecimal,    // 주문 금액 (상품 원가)
     val merchantDiscount: BigDecimal,    // 가맹점 부담 할인액
-    val platformDiscount: BigDecimal     // 플랫폼 부담 할인액
+    val platformDiscount: BigDecimal,     // 플랫폼 부담 할인액
+    val status          : OrderStatus,
 ) {
     fun getTotalDiscount() : BigDecimal {
         return merchantDiscount + platformDiscount

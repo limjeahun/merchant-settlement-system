@@ -11,10 +11,10 @@ class KafkaAdapter(
 ): PublishEventPort {
     override fun sendReportEvent(merchantId: Long, merchantName: String, startDate: String, endDate: String) {
         val event = ReportRequestEvent(
-            merchantId = merchantId,
+            merchantId   = merchantId,
             merchantName = merchantName,
-            startDate = startDate,
-            endDate = endDate
+            startDate    = startDate,
+            endDate      = endDate
         )
         kafkaTemplate.send("settlement.report.request", merchantId.toString(), event)
     }
