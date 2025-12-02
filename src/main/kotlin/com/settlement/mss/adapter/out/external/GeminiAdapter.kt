@@ -1,5 +1,9 @@
 package com.settlement.mss.adapter.out.external
 
+import com.settlement.mss.adapter.out.external.dto.GeminiContent
+import com.settlement.mss.adapter.out.external.dto.GeminiPart
+import com.settlement.mss.adapter.out.external.dto.GeminiRequest
+import com.settlement.mss.adapter.out.external.dto.GeminiResponse
 import com.settlement.mss.application.port.out.AiAnalysisPort
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.MediaType
@@ -16,30 +20,39 @@ class GeminiAdapter(
 
     override fun analyze(systemRole: String, userPrompt: String): String {
         // Gemini API 스펙에 맞춘 JSON 구조
-        val requestBody = mapOf(
-            "contents" to listOf(
-                mapOf(
-                    "parts" to listOf(
-                        mapOf("text" to "$systemRole\n\n$userPrompt") // System Role을 프롬프트 앞단에 배치
+        val requestBody = GeminiRequest(
+            contents = listOf(
+                GeminiContent(
+                    parts = listOf(
+                        GeminiPart(text = "$systemRole\n\n$userPrompt")
                     )
                 )
             )
         )
-
-        val response = restClient.post()
-            .uri { it.queryParam("key", apiKey).build() }
-            .contentType(MediaType.APPLICATION_JSON)
-            .body(requestBody)
-            .retrieve()
-            .body(String::class.java)
-
-        return parseResponse(response)
+        return parseResponse(requestBody)
     }
 
-    private fun parseResponse(json: String?): String {
-        // 간단한 파싱 로직 (실제로는 Jackson 등 사용 권장)
-        // 응답 JSON 구조: candidates[0].content.parts[0].text
-        return json?.substringAfter("\"text\": \"")?.substringBefore("\"")
-            ?.replace("\\n", "\n") ?: "분석 실패"
+    private fun parseResponse(requestBody: GeminiRequest): String {
+        return try {
+            val response = restClient.post()
+                .uri { it.queryParam("key", apiKey).build() }
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(requestBody) // 객체를 넣으면 알아서 JSON으로 변환됨
+                .retrieve()
+                .body(GeminiResponse::class.java) // DTO로 매핑
+            extractText(response)
+        }catch (e: Exception) {
+            "AI 분석 실패: ${e.message}"
+        }
+    }
+
+    private fun extractText(response: GeminiResponse?): String {
+        return response?.candidates
+            ?.firstOrNull()
+            ?.content
+            ?.parts
+            ?.firstOrNull()
+            ?.text
+            ?: "분석 결과 없음"
     }
 }

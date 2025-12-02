@@ -20,4 +20,10 @@ class OrderPersistenceAdapter(
             .map { orderMapper.toDomain(it) }
     }
 
+    override fun findOrdersByDateRange(merchantId: Long, startDate: LocalDate, endDate: LocalDate): List<Order> {
+        val start = startDate.atStartOfDay()
+        val end = endDate.atTime(23, 59, 59)
+        return orderRepository.findAllByMerchantIdAndOrderedAtBetween(merchantId, start, end).map { orderMapper.toDomain(it) }
+    }
+
 }

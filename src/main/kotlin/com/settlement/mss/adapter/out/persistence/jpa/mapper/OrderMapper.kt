@@ -13,6 +13,7 @@ class OrderMapper {
             merchantId       = entity.merchantId,
             orderedAt        = entity.orderedAt,
             amount           = entity.amount,
+            deliveryFee      = entity.deliveryFee,
             merchantDiscount = entity.merchantDiscount,
             platformDiscount = entity.platformDiscount,
             status           = OrderStatus.valueOf(entity.status)

@@ -8,6 +8,7 @@ import com.settlement.mss.application.port.out.LoadOrderPort
 import com.settlement.mss.application.port.out.RecordSettlementPort
 import com.settlement.mss.domain.model.Settlement
 import com.settlement.mss.domain.policy.SettlementCalculator
+import com.settlement.mss.domain.service.BusinessDayPolicy
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -19,19 +20,29 @@ class SettlementService(
     private val loadOrderPort       : LoadOrderPort,
     private val recordSettlementPort: RecordSettlementPort,
     private val calculator          : SettlementCalculator,
+    private val businessDayPolicy   : BusinessDayPolicy,
 ) : FindSettlementTargetUseCase, CalculateSettlementUseCase, SaveSettlementUseCase {
 
     @Transactional(readOnly = true)
     override fun findTargetMerchants(date: LocalDate): List<Long> {
+        // 휴일에는 정산 대상 제외
+        if (!businessDayPolicy.isBusinessDay(date)) {
+            return emptyList()
+        }
+
         return loadMerchantPort.findSettlementDueMerchants(date)
     }
 
     @Transactional
     override fun calculateSettlement(merchantId: Long, targetDate: LocalDate): Settlement? {
         val merchant = loadMerchantPort.loadMerchant(merchantId)
-        val orders = loadOrderPort.findOrdersByDate(merchantId, targetDate)
+        // 정산 주기에 따른 주문 조회 범위 계산 (T+7 적용)
+        val dateRange = merchant.settlementCycle.calculateDateRange(targetDate, businessDayPolicy)
+            ?: return null
 
+        val orders = loadOrderPort.findOrdersByDateRange(merchantId, dateRange.first, dateRange.second)
         if (orders.isEmpty()) return null
+
         return calculator.calculate(merchant, orders, targetDate)
     }
 
