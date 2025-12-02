@@ -72,7 +72,7 @@ class DataSeederTest {
 
     // 랜덤 정산 주기
     private fun getRandomCycle(): SettlementCycle {
-        val cycles = SettlementCycle.values()
+        val cycles = SettlementCycle.entries.toTypedArray()
         return cycles[ThreadLocalRandom.current().nextInt(cycles.size)]
     }
 
