@@ -47,8 +47,7 @@ class SettlementBatchConfig(
 
     @Bean
     fun merchantIdReader(): IteratorItemReader<Long> {
-        val today = LocalDate.now()
-        return IteratorItemReader(findTargetUseCase.findTargetMerchants(today))
+        return IteratorItemReader(findTargetUseCase.findTargetMerchants(LocalDate.now()))
     }
 
     @Bean

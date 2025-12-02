@@ -21,10 +21,20 @@ class MerchantPersistenceAdapter(
     }
 
     override fun findSettlementDueMerchants(date: LocalDate): List<Long> {
-        return merchantRepository.findAll().filter { entity ->
-            val cycle = SettlementCycle.valueOf(entity.settlementCycle)
-            isDue(cycle, date)
-        }.map { it.id!! }
+        // 1. 오늘 날짜에 해당하는 정산 주기(Cycle) 목록 생성
+        val targetCycles = mutableListOf<String>()
+        // 매일 정산은 무조건 포함
+        targetCycles.add(SettlementCycle.DAILY.name)
+        // 매주 정산 (수요일인 경우 포함)
+        if (date.dayOfWeek == DayOfWeek.WEDNESDAY) {
+            targetCycles.add(SettlementCycle.WEEKLY.name)
+        }
+        // 매월 정산 (1일인 경우 포함)
+        if (date.dayOfMonth == 1) {
+            targetCycles.add(SettlementCycle.MONTHLY.name)
+        }
+        // 2. DB에서 해당 주기를 가진 가맹점 ID만 조회
+        return merchantRepository.findIdsBySettlementCycleIn(targetCycles)
     }
 
     private fun isDue(cycle: SettlementCycle, date: LocalDate): Boolean {
