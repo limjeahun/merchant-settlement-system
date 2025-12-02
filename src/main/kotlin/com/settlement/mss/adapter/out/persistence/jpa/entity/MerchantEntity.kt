@@ -10,7 +10,9 @@ class MerchantEntity(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id             : Long? = null,
     val name           : String,
-    @Enumerated(EnumType.STRING)
-    val settlementCycle: String, // DB에는 String으로 저장
-    val feeRate        : BigDecimal,
+    val settlementCycle: String,
+    val businessType   : String,   // 사업자 유형
+    val platformFeeRate: BigDecimal,     // 플랫폼 중개 수수료 (예: 0.05)
+    val pgFeeRate      : BigDecimal,     // 결제 대행(PG) 수수료 (예: 0.03)
+    val supportDelivery: Boolean
 )

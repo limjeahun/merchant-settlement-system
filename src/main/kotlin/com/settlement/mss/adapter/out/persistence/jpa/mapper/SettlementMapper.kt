@@ -4,6 +4,8 @@ import com.settlement.mss.adapter.out.persistence.jpa.entity.SettlementEntity
 import com.settlement.mss.domain.model.Settlement
 import com.settlement.mss.domain.model.SettlementStatus
 import org.springframework.stereotype.Component
+import java.math.BigDecimal
+import java.time.LocalDate
 
 @Component
 class SettlementMapper {
@@ -13,8 +15,15 @@ class SettlementMapper {
             merchantId = domain.merchantId,
             targetDate = domain.targetDate,
             totalOrderAmount = domain.totalOrderAmount,
-            totalFeeAmount = domain.totalFeeAmount,
+
+            totalDeliveryAmount = domain.totalDeliveryAmount,
+            totalRevenue = domain.totalRevenue,
             totalDiscountShare = domain.totalDiscountShare,
+            platformFeeAmount = domain.platformFeeAmount,
+            pgFeeAmount = domain.pgFeeAmount,
+            vatAmount = domain.vatAmount,
+            withholdingTaxAmount = domain.withholdingTaxAmount,
+
             payoutAmount = domain.payoutAmount,
             status = domain.status.name
         )
@@ -26,8 +35,13 @@ class SettlementMapper {
             merchantId = entity.merchantId,
             targetDate = entity.targetDate,
             totalOrderAmount = entity.totalOrderAmount,
-            totalFeeAmount = entity.totalFeeAmount,
+            totalDeliveryAmount = entity.totalDeliveryAmount,
+            totalRevenue = entity.totalRevenue,
             totalDiscountShare = entity.totalDiscountShare,
+            platformFeeAmount = entity.platformFeeAmount,
+            pgFeeAmount = entity.pgFeeAmount,
+            vatAmount = entity.vatAmount,
+            withholdingTaxAmount = entity.withholdingTaxAmount,
             payoutAmount = entity.payoutAmount,
             status = SettlementStatus.valueOf(entity.status)
         )
