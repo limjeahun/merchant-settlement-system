@@ -15,7 +15,6 @@ import org.springframework.batch.item.support.IteratorItemReader
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.transaction.PlatformTransactionManager
-import java.time.DayOfWeek
 import java.time.LocalDate
 
 @Configuration
@@ -84,12 +83,6 @@ class SettlementBatchConfig(
     @StepScope
     fun reportReader(): IteratorItemReader<Settlement> {
         val today = LocalDate.now()
-
-        // 월요일이 아니면 빈 리더 반환 (Step 실행 즉시 종료)
-        if (today.dayOfWeek != DayOfWeek.MONDAY) {
-            return IteratorItemReader(emptyList())
-        }
-
         // T-7일자 정산 데이터를 조회 (Step 1에서 저장한 데이터)
         val targetDate = today.minusDays(7)
         val settlements = findDailySettlementsUseCase.findSettlementsByDate(targetDate)

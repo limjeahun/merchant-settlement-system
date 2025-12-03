@@ -15,7 +15,7 @@ class GeminiAdapter(
     @Value("\${google.gemini.api-key}") private val apiKey: String
 ): AiAnalysisPort {
     private val restClient = RestClient.builder()
-        .baseUrl("https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent")
+        .baseUrl("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent")
         .build()
 
     override fun analyze(systemRole: String, userPrompt: String): String {

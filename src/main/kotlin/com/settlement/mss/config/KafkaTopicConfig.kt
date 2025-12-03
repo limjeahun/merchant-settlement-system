@@ -13,7 +13,7 @@ class KafkaTopicConfig {
     @Bean
     fun settlementReportTopic(): NewTopic {
         return TopicBuilder.name("settlement.report.request")
-            .partitions(3) // 파티션 개수 (병렬 처리 개수)
+            .partitions(1) // 파티션 개수 (병렬 처리 개수)
             .replicas(1)   // 복제 개수(운영:3)
             .build()
     }

@@ -17,6 +17,8 @@ class ReportEventWorker(
         val merchantName = event.merchantName
         val startDate    = LocalDate.parse(event.startDate)
         val endDate      = LocalDate.parse(event.endDate)
+        // API 호출 전 1초 강제 휴식
+        Thread.sleep(5500)
         // Application Service 호출
         generateReportUseCase.generateAndSendReport(merchantId, merchantName, startDate, endDate)
     }
