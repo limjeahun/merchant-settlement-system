@@ -2,6 +2,7 @@ package com.settlement.mss.adapter.out.notification
 
 import com.settlement.mss.adapter.out.notification.dto.SlackMessageDto
 import com.settlement.mss.application.port.out.NotificationPort
+import com.settlement.mss.common.extensions.getLogger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.MediaType
@@ -17,7 +18,7 @@ class NotificationAdapter(
     @Value("\${slack.webhook.url}") private val slackWebhookUrl: String,
     @Value("\${spring.mail.username}") private val fromEmail: String
 ): NotificationPort {
-    private val logger = LoggerFactory.getLogger(this::class.java)
+    private val logger = getLogger()
     private val restClient = RestClient.create()
 
     // 1. 주간 리포트 발송 (이메일)

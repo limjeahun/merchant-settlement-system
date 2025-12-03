@@ -1,4 +1,4 @@
-version: '3.8'
+# version: '3.8'
 services:
   mysql:
     image: mysql:8.0
@@ -10,15 +10,21 @@ services:
       MYSQL_DATABASE: settlement_db
       MYSQL_USER: armada # DB 사용자
       MYSQL_PASSWORD: armada # DB 암호
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
+      - mysql-data:/var/lib/mysql
     command:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
+
 
   redis:
     image: redis:7.0
     container_name: local-redis
     ports:
       - "6379:6379"
+    volumes:
+      - redis-data:/data
 
   zookeeper:
     image: confluentinc/cp-zookeeper:7.3.0
@@ -37,7 +43,8 @@ services:
       - zookeeper
     environment:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_BROKER_ID: 1
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
@@ -51,3 +58,10 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: 1111
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mysql-data:
+  redis-data:
+  mongo-data:

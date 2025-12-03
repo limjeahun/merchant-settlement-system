@@ -1,5 +1,6 @@
 package com.settlement.mss.domain.policy
 
+import com.settlement.mss.common.extensions.getLogger
 import com.settlement.mss.domain.model.*
 import org.springframework.stereotype.Component
 import java.math.BigDecimal
@@ -8,6 +9,8 @@ import java.time.LocalDate
 
 @Component
 class SettlementCalculator {
+    private val logger = getLogger()
+
     fun calculate(
         merchant  : Merchant,
         orders    : List<Order>,
@@ -67,7 +70,7 @@ class SettlementCalculator {
         // 4. 최종 지급액 계산 (Final Payout)
         // ==========================================================
         val finalPayout = preTaxPayout.subtract(withholdingTax)
-
+        logger.debug("finalPayout : {}", finalPayout)
         return Settlement(
             merchantId           = merchant.id,
             targetDate           = targetDate,

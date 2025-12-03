@@ -7,8 +7,8 @@ import com.settlement.mss.application.port.out.LoadMerchantPort
 import com.settlement.mss.application.port.out.LoadSettlementPort
 import com.settlement.mss.application.port.out.PublishEventPort
 import com.settlement.mss.domain.model.Settlement
-import org.springframework.jdbc.datasource.DataSourceTransactionManager
 import org.springframework.stereotype.Service
+import org.springframework.transaction.PlatformTransactionManager
 import org.springframework.transaction.annotation.Transactional
 import java.time.DayOfWeek
 import java.time.LocalDate
@@ -16,9 +16,9 @@ import java.time.LocalDate
 @Service
 class SettlementReportTriggerService(
     private val loadSettlementPort: LoadSettlementPort,
-    private val loadMerchantPort: LoadMerchantPort,
-    private val publishEventPort: PublishEventPort,
-    private val transactionManager: DataSourceTransactionManager,
+    private val loadMerchantPort  : LoadMerchantPort,
+    private val publishEventPort  : PublishEventPort,
+    private val transactionManager: PlatformTransactionManager,
 ): FindDailySettlementsUseCase, SendReportEventUseCase {
     @Transactional(readOnly = true)
     override fun findSettlementsByDate(date: LocalDate): List<Settlement> {

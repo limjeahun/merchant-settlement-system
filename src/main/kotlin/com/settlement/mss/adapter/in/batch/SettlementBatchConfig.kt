@@ -4,7 +4,9 @@ import com.settlement.mss.application.port.`in`.*
 import com.settlement.mss.domain.model.Settlement
 import org.springframework.batch.core.Job
 import org.springframework.batch.core.Step
+import org.springframework.batch.core.configuration.annotation.StepScope
 import org.springframework.batch.core.job.builder.JobBuilder
+import org.springframework.batch.core.launch.support.RunIdIncrementer
 import org.springframework.batch.core.repository.JobRepository
 import org.springframework.batch.core.step.builder.StepBuilder
 import org.springframework.batch.item.ItemProcessor
@@ -30,6 +32,7 @@ class SettlementBatchConfig(
     @Bean
     fun settlementJob(): Job {
         return JobBuilder("dailySettlementJob", jobRepository)
+            .incrementer(RunIdIncrementer())
             .start(settlementStep()) // Step 1: 정산 & 저장
             .next(reportStep())      // Step 2: 리포트 발행
             .build()
@@ -46,11 +49,13 @@ class SettlementBatchConfig(
     }
 
     @Bean
+    @StepScope
     fun merchantIdReader(): IteratorItemReader<Long> {
         return IteratorItemReader(findTargetUseCase.findTargetMerchants(LocalDate.now()))
     }
 
     @Bean
+    @StepScope
     fun settlementProcessor(): ItemProcessor<Long, Settlement> {
         return ItemProcessor { merchantId ->
             val targetDate = LocalDate.now().minusDays(7)
@@ -59,6 +64,7 @@ class SettlementBatchConfig(
     }
 
     @Bean
+    @StepScope
     fun settlementWriter(): ItemWriter<Settlement> {
         return ItemWriter { chunk ->
             saveUseCase.saveSettlements(chunk.items.toList())
@@ -75,6 +81,7 @@ class SettlementBatchConfig(
     }
 
     @Bean
+    @StepScope
     fun reportReader(): IteratorItemReader<Settlement> {
         val today = LocalDate.now()
 
@@ -91,6 +98,7 @@ class SettlementBatchConfig(
     }
 
     @Bean
+    @StepScope
     fun reportWriter(): ItemWriter<Settlement> {
         return ItemWriter { chunk ->
             // 이미 Reader에서 날짜 체크를 했으므로 바로 전송

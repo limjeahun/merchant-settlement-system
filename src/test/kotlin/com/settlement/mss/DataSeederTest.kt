@@ -26,7 +26,7 @@ class DataSeederTest {
         // 1. 가맹점 100개 생성
         val merchants = (1..100).map { i ->
             MerchantEntity(
-                name = "테스트가맹점_$i",
+                name = generateRealMerchantName(i),
                 settlementCycle = getRandomCycle().name,
                 businessType = if (i % 2 == 0) BusinessType.CORPORATE.name else BusinessType.INDIVIDUAL.name,
                 platformFeeRate = BigDecimal("0.03"), // 플랫폼 3%
@@ -68,6 +68,23 @@ class DataSeederTest {
             orderRepository.saveAll(batch)
         }
         println("✅ 주문 ${orders.size}건 생성 완료")
+    }
+
+    private fun generateRealMerchantName(index: Int): String {
+        val prefixes = listOf(
+            "행복한", "맛있는", "착한", "우리", "매일", "스마일", "신선", "건강한", "바른", "명품",
+            "서울", "강남", "판교", "부산", "제주", "성수", "홍대", "이태원", "동네", "골목"
+        )
+        val suffixes = listOf(
+            "김밥", "카페", "베이커리", "식당", "푸드", "마켓", "상회", "마트", "편의점", "유통",
+            "치킨", "피자", "버거", "반점", "족발", "보쌈", "횟집", "공방", "스튜디오", "약국"
+        )
+
+        val prefix = prefixes[ThreadLocalRandom.current().nextInt(prefixes.size)]
+        val suffix = suffixes[ThreadLocalRandom.current().nextInt(suffixes.size)]
+
+        // 이름 중복을 피하기 위해 뒤에 호점 번호 등을 붙여도 좋음 (여기선 단순 조합)
+        return "$prefix $suffix ${index}호점"
     }
 
     // 랜덤 정산 주기

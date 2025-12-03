@@ -6,6 +6,7 @@ import com.settlement.mss.application.port.`in`.SaveSettlementUseCase
 import com.settlement.mss.application.port.out.LoadMerchantPort
 import com.settlement.mss.application.port.out.LoadOrderPort
 import com.settlement.mss.application.port.out.RecordSettlementPort
+import com.settlement.mss.common.extensions.getLogger
 import com.settlement.mss.domain.model.Settlement
 import com.settlement.mss.domain.policy.SettlementCalculator
 import com.settlement.mss.domain.service.BusinessDayPolicy
@@ -22,6 +23,7 @@ class SettlementService(
     private val calculator          : SettlementCalculator,
     private val businessDayPolicy   : BusinessDayPolicy,
 ) : FindSettlementTargetUseCase, CalculateSettlementUseCase, SaveSettlementUseCase {
+    private val logger = getLogger()
 
     @Transactional(readOnly = true)
     override fun findTargetMerchants(date: LocalDate): List<Long> {
@@ -33,7 +35,7 @@ class SettlementService(
         return loadMerchantPort.findSettlementDueMerchants(date)
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     override fun calculateSettlement(merchantId: Long, targetDate: LocalDate): Settlement? {
         val merchant = loadMerchantPort.loadMerchant(merchantId)
         // 정산 주기에 따른 주문 조회 범위 계산 (T+7 적용)
@@ -42,10 +44,11 @@ class SettlementService(
 
         val orders = loadOrderPort.findOrdersByDateRange(merchantId, dateRange.first, dateRange.second)
         if (orders.isEmpty()) return null
-
+        logger.debug("merchant : {}", merchant.toString())
         return calculator.calculate(merchant, orders, targetDate)
     }
 
+    @Transactional
     override fun saveSettlements(settlements: List<Settlement>) {
         recordSettlementPort.saveAll(settlements)
     }

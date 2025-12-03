@@ -10,11 +10,17 @@ spring:
   application:
     name: mss
 
+  batch:
+    jdbc:
+      initialize-schema: always
+    job:
+      enabled: true
+
   # ===============================================
   # DATABASE (MySQL) CONFIGURATION
   # ===============================================
   datasource:
-    url: jdbc:mysql://localhost:3307/mss?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3307/settlement_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: armada
     password: armada
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -78,6 +84,13 @@ spring:
         spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
         spring.json.trusted.packages: "com.settlement.mss.*"
       auto-offset-reset: earliest # 처음 실행 시 이전 메시지부터 읽기
+
+  # ===============================================
+  # External API Configuration
+  # ===============================================
+  google:
+    gemini:
+      api-key: ${GOOGLE_GEMINI_API_KEY}
 
   mail:
     host: smtp.gmail.com

@@ -57,6 +57,8 @@ dependencies {
     testImplementation("org.springframework.batch:spring-batch-test")
     testImplementation("org.springframework.kafka:spring-kafka-test")
 
+    // Mockito-Kotlin Test
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.2.1")
 }
 
 kotlin {
