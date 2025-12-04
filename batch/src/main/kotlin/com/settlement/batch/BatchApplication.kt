@@ -1,11 +1,11 @@
-package com.settlement.mss
+package com.settlement.batch
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class MssApplication
+class BatchApplication
 
 fun main(args: Array<String>) {
-    runApplication<MssApplication>(*args)
+    runApplication<BatchApplication>(*args)
 }

@@ -1,10 +1,10 @@
-package com.settlement.mss
+package com.settlement.batch
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class MssApplicationTests {
+class BatchApplicationTests {
 
     @Test
     fun contextLoads() {
