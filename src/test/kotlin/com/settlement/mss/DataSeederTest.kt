@@ -1,12 +1,12 @@
 package com.settlement.mss
 
-import com.settlement.mss.adapter.out.persistence.jpa.entity.MerchantEntity
-import com.settlement.mss.adapter.out.persistence.jpa.entity.OrderEntity
-import com.settlement.mss.adapter.out.persistence.jpa.repository.MerchantJpaRepository
-import com.settlement.mss.adapter.out.persistence.jpa.repository.OrderJpaRepository
-import com.settlement.mss.domain.model.BusinessType
-import com.settlement.mss.domain.model.OrderStatus
-import com.settlement.mss.domain.model.SettlementCycle
+import com.settlement.mss.core.infrastructure.persistence.jpa.entity.MerchantEntity
+import com.settlement.mss.core.infrastructure.persistence.jpa.entity.OrderEntity
+import com.settlement.mss.core.infrastructure.persistence.jpa.repository.MerchantJpaRepository
+import com.settlement.mss.core.infrastructure.persistence.jpa.repository.OrderJpaRepository
+import com.settlement.mss.core.domain.model.BusinessType
+import com.settlement.mss.core.domain.model.OrderStatus
+import com.settlement.mss.core.domain.model.SettlementCycle
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest

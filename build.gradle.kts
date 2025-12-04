@@ -1,72 +1,43 @@
 plugins {
-    kotlin("jvm") version "1.9.25"
-    kotlin("plugin.spring") version "1.9.25"
-    kotlin("plugin.jpa") version "1.9.25"
-    id("org.springframework.boot") version "3.5.8"
-    id("io.spring.dependency-management") version "1.1.7"
+    kotlin("jvm") version "1.9.25" apply false
+    kotlin("plugin.spring") version "1.9.25" apply false
+    kotlin("plugin.jpa") version "1.9.25" apply false
+    id("org.springframework.boot") version "3.5.8" apply false
+    id("io.spring.dependency-management") version "1.1.7" apply false
 }
 
-group = "com.settlement"
-version = "0.0.1-SNAPSHOT"
-description = "mss"
+// 모든 서브 모듈(common, core, batch, worker)에 공통 적용
+subprojects {
+    apply(plugin = "kotlin")
+    apply(plugin = "kotlin-spring")
+    apply(plugin = "kotlin-jpa") // core 때문에 필요 (나머지엔 영향 없음)
+    apply(plugin = "org.springframework.boot")
+    apply(plugin = "io.spring.dependency-management")
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+    group = "com.settlement"
+    version = "0.0.1-SNAPSHOT"
+
+    repositories {
+        mavenCentral()
     }
-}
 
-configurations {
-    compileOnly {
-        extendsFrom(configurations.annotationProcessor.get())
+    dependencies {
+        // 모든 모듈이 기본적으로 가지는 의존성
+        "implementation"("org.jetbrains.kotlin:kotlin-reflect")
+        "implementation"("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+        "implementation"("com.fasterxml.jackson.module:jackson-module-kotlin")
+        "testImplementation"("org.springframework.boot:spring-boot-starter-test")
+        "testImplementation"("org.jetbrains.kotlin:kotlin-test-junit5")
     }
-}
 
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    implementation("org.springframework.boot:spring-boot-starter")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    compileOnly("org.projectlombok:lombok")
-    annotationProcessor("org.projectlombok:lombok")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-
-    implementation("org.springframework.boot:spring-boot-starter-batch")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.springframework.boot:spring-boot-starter-data-redis")
-    implementation("org.springframework.kafka:spring-kafka")
-    implementation("org.springframework.boot:spring-boot-starter-web") // RestClien, 배치 실행 트리거용
-    // Kotlin
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin") // JSON (Kafka)
-    // Redis Lock
-    implementation("org.springframework.boot:spring-boot-starter-integration")
-    implementation("org.springframework.integration:spring-integration-redis")
-    runtimeOnly("com.mysql:mysql-connector-j")
-    // 이메일 발송용
-    implementation("org.springframework.boot:spring-boot-starter-mail")
-    // MongoDB
-    implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
-    // Test
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.springframework.batch:spring-batch-test")
-    testImplementation("org.springframework.kafka:spring-kafka-test")
-
-    // Mockito-Kotlin Test
-    testImplementation("org.mockito.kotlin:mockito-kotlin:5.2.1")
-}
-
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.addAll("-Xjsr305=strict")
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+        kotlinOptions {
+            freeCompilerArgs += "-Xjsr305=strict"
+            jvmTarget = "21" // 사용하시는 자바 버전
+        }
     }
-}
 
-tasks.withType<Test> {
-    useJUnitPlatform()
+    tasks.withType<Test> {
+        useJUnitPlatform()
+    }
 }
