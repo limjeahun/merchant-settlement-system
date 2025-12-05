@@ -1,7 +1,7 @@
-package com.settlement.mss.worker.adapter.`in`.worker
+package com.settlement.worker.adapter.`in`.worker
 
-import com.settlement.mss.worker.application.port.`in`.GenerateReportUseCase
-import com.settlement.mss.common.event.ReportRequestEvent
+import com.settlement.worker.application.port.`in`.GenerateReportUseCase
+import com.settlement.common.event.ReportRequestEvent
 import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.stereotype.Component
 import java.time.LocalDate

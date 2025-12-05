@@ -1,9 +1,9 @@
-package com.settlement.mss.core.infrastructure.persistence.jpa.mapper
+package com.settlement.core.infrastructure.persistence.jpa.mapper
 
-import com.settlement.mss.core.infrastructure.persistence.jpa.entity.MerchantEntity
-import com.settlement.mss.core.domain.model.BusinessType
-import com.settlement.mss.core.domain.model.Merchant
-import com.settlement.mss.core.domain.model.SettlementCycle
+import com.settlement.core.infrastructure.persistence.jpa.entity.MerchantEntity
+import com.settlement.core.domain.model.BusinessType
+import com.settlement.core.domain.model.Merchant
+import com.settlement.core.domain.model.SettlementCycle
 import org.springframework.stereotype.Component
 
 @Component

@@ -1,4 +1,4 @@
-package com.settlement.mss.batch.application.port.out
+package com.settlement.batch.application.port.out
 
 interface PublishEventPort {
     fun sendReportEvent(

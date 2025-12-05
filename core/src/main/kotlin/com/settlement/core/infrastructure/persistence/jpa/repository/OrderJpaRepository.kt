@@ -1,6 +1,6 @@
-package com.settlement.mss.core.infrastructure.persistence.jpa.repository
+package com.settlement.core.infrastructure.persistence.jpa.repository
 
-import com.settlement.mss.core.infrastructure.persistence.jpa.entity.OrderEntity
+import com.settlement.core.infrastructure.persistence.jpa.entity.OrderEntity
 import org.springframework.data.jpa.repository.JpaRepository
 import java.time.LocalDateTime
 

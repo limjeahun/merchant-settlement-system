@@ -1,6 +1,6 @@
-package com.settlement.mss.core.infrastructure.persistence.jpa.repository
+package com.settlement.core.infrastructure.persistence.jpa.repository
 
-import com.settlement.mss.core.infrastructure.persistence.jpa.entity.MerchantEntity
+import com.settlement.core.infrastructure.persistence.jpa.entity.MerchantEntity
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param

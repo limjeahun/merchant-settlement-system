@@ -1,4 +1,4 @@
-package com.settlement.mss.core.domain.model
+package com.settlement.core.domain.model
 
 enum class BusinessType {
     CORPORATE, // 법인 (세금계산서 발행)

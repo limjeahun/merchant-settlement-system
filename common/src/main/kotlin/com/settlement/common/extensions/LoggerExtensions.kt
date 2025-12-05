@@ -1,4 +1,4 @@
-package com.settlement.mss.common.extensions
+package com.settlement.common.extensions
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

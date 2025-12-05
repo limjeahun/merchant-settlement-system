@@ -1,8 +1,8 @@
-package com.settlement.mss.core.infrastructure.persistence.jpa.mapper
+package com.settlement.core.infrastructure.persistence.jpa.mapper
 
-import com.settlement.mss.core.infrastructure.persistence.jpa.entity.OrderEntity
-import com.settlement.mss.core.domain.model.Order
-import com.settlement.mss.core.domain.model.OrderStatus
+import com.settlement.core.infrastructure.persistence.jpa.entity.OrderEntity
+import com.settlement.core.domain.model.Order
+import com.settlement.core.domain.model.OrderStatus
 import org.springframework.stereotype.Component
 
 @Component

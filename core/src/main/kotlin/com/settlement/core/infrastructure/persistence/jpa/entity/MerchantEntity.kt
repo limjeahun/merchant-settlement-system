@@ -1,4 +1,4 @@
-package com.settlement.mss.core.infrastructure.persistence.jpa.entity
+package com.settlement.core.infrastructure.persistence.jpa.entity
 
 import jakarta.persistence.*
 import java.math.BigDecimal

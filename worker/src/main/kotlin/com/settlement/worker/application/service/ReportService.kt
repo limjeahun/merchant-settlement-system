@@ -1,12 +1,12 @@
-package com.settlement.mss.worker.application.service
+package com.settlement.worker.application.service
 
-import com.settlement.mss.worker.application.port.`in`.GenerateReportUseCase
-import com.settlement.mss.worker.application.port.out.AiAnalysisPort
+import com.settlement.worker.application.port.`in`.GenerateReportUseCase
+import com.settlement.worker.application.port.out.AiAnalysisPort
 
-import com.settlement.mss.worker.application.port.out.NotificationPort
-import com.settlement.mss.worker.application.port.out.SaveReportPort
-import com.settlement.mss.core.domain.model.SettlementReport
-import com.settlement.mss.worker.application.port.out.LoadSettlementByRangePort
+import com.settlement.worker.application.port.out.NotificationPort
+import com.settlement.worker.application.port.out.SaveReportPort
+import com.settlement.core.domain.model.SettlementReport
+import com.settlement.worker.application.port.out.LoadSettlementByRangePort
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.math.BigDecimal

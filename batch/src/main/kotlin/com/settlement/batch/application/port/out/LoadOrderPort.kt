@@ -1,6 +1,6 @@
-package com.settlement.mss.batch.application.port.out
+package com.settlement.batch.application.port.out
 
-import com.settlement.mss.core.domain.model.Order
+import com.settlement.core.domain.model.Order
 import java.time.LocalDate
 
 interface LoadOrderPort {

@@ -1,4 +1,4 @@
-package com.settlement.mss.common.event
+package com.settlement.common.event
 
 class ReportRequestEvent(
     val merchantId  : Long,

@@ -1,10 +1,10 @@
-package com.settlement.mss.worker.adapter.out.external
+package com.settlement.worker.adapter.out.external
 
-import com.settlement.mss.worker.adapter.out.external.dto.GeminiContent
-import com.settlement.mss.worker.adapter.out.external.dto.GeminiPart
-import com.settlement.mss.worker.adapter.out.external.dto.GeminiRequest
-import com.settlement.mss.worker.adapter.out.external.dto.GeminiResponse
-import com.settlement.mss.worker.application.port.out.AiAnalysisPort
+import com.settlement.worker.adapter.out.external.dto.GeminiContent
+import com.settlement.worker.adapter.out.external.dto.GeminiPart
+import com.settlement.worker.adapter.out.external.dto.GeminiRequest
+import com.settlement.worker.adapter.out.external.dto.GeminiResponse
+import com.settlement.worker.application.port.out.AiAnalysisPort
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Component

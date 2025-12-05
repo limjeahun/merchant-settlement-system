@@ -1,4 +1,4 @@
-package com.settlement.mss.core.infrastructure.persistence.support
+package com.settlement.core.infrastructure.persistence.support
 
 import org.springframework.transaction.PlatformTransactionManager
 import org.springframework.transaction.TransactionDefinition

@@ -1,6 +1,7 @@
-package com.settlement.mss.core.domain.model
+package com.settlement.core.domain.model
 
-import com.settlement.mss.core.domain.service.BusinessDayPolicy
+
+import com.settlement.core.domain.service.BusinessDayPolicy
 import java.time.LocalDate
 
 enum class SettlementCycle {

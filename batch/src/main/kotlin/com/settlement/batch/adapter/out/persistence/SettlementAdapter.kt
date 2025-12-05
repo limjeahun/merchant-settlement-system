@@ -1,10 +1,10 @@
-package com.settlement.mss.batch.adapter.out.persistence
+package com.settlement.batch.adapter.out.persistence
 
-import com.settlement.mss.core.infrastructure.persistence.jpa.mapper.SettlementMapper
-import com.settlement.mss.core.infrastructure.persistence.jpa.repository.SettlementJpaRepository
-import com.settlement.mss.batch.application.port.out.LoadSettlementPort
-import com.settlement.mss.batch.application.port.out.RecordSettlementPort
-import com.settlement.mss.core.domain.model.Settlement
+import com.settlement.core.infrastructure.persistence.jpa.mapper.SettlementMapper
+import com.settlement.core.infrastructure.persistence.jpa.repository.SettlementJpaRepository
+import com.settlement.batch.application.port.out.LoadSettlementPort
+import com.settlement.batch.application.port.out.RecordSettlementPort
+import com.settlement.core.domain.model.Settlement
 import org.springframework.stereotype.Component
 import java.time.LocalDate
 

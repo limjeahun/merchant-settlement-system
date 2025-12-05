@@ -1,4 +1,4 @@
-package com.settlement.mss.core.domain.service
+package com.settlement.core.domain.service
 
 import org.springframework.stereotype.Component
 import java.time.DayOfWeek

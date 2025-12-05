@@ -1,9 +1,9 @@
-package com.settlement.mss.worker.adapter.out.persistence
+package com.settlement.worker.adapter.out.persistence
 
-import com.settlement.mss.worker.adapter.out.persistence.mongo.mapper.ReportMapper
-import com.settlement.mss.worker.adapter.out.persistence.mongo.repository.ReportMongoRepository
-import com.settlement.mss.worker.application.port.out.SaveReportPort
-import com.settlement.mss.core.domain.model.SettlementReport
+import com.settlement.worker.adapter.out.persistence.mongo.mapper.ReportMapper
+import com.settlement.worker.adapter.out.persistence.mongo.repository.ReportMongoRepository
+import com.settlement.worker.application.port.out.SaveReportPort
+import com.settlement.core.domain.model.SettlementReport
 import org.springframework.stereotype.Component
 
 @Component

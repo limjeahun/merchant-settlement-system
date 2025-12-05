@@ -1,10 +1,11 @@
-package com.settlement.mss.batch.adapter.out.persistence
+package com.settlement.batch.adapter.out.persistence
 
-import com.settlement.mss.core.infrastructure.persistence.jpa.mapper.MerchantMapper
-import com.settlement.mss.core.infrastructure.persistence.jpa.repository.MerchantJpaRepository
-import com.settlement.mss.batch.application.port.out.LoadMerchantPort
-import com.settlement.mss.core.domain.model.Merchant
-import com.settlement.mss.core.domain.model.SettlementCycle
+import com.settlement.core.infrastructure.persistence.jpa.mapper.MerchantMapper
+import com.settlement.core.infrastructure.persistence.jpa.repository.MerchantJpaRepository
+import com.settlement.batch.application.port.out.LoadMerchantPort
+import com.settlement.core.domain.model.Merchant
+import com.settlement.core.domain.model.SettlementCycle
+
 import org.springframework.stereotype.Component
 import java.time.DayOfWeek
 import java.time.LocalDate

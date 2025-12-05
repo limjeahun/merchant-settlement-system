@@ -1,7 +1,7 @@
-package com.settlement.mss.batch.adapter.out.message
+package com.settlement.batch.adapter.out.message
 
-import com.settlement.mss.batch.application.port.out.PublishEventPort
-import com.settlement.mss.common.event.ReportRequestEvent
+import com.settlement.batch.application.port.out.PublishEventPort
+import com.settlement.common.event.ReportRequestEvent
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.stereotype.Component
 

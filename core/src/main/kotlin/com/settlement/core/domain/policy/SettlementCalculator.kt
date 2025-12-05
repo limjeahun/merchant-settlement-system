@@ -1,7 +1,7 @@
-package com.settlement.mss.core.domain.policy
+package com.settlement.core.domain.policy
 
-import com.settlement.mss.common.extensions.getLogger
-import com.settlement.mss.core.domain.model.*
+import com.settlement.common.extensions.getLogger
+import com.settlement.core.domain.model.*
 import org.springframework.stereotype.Component
 import java.math.BigDecimal
 import java.math.RoundingMode

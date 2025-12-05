@@ -1,7 +1,7 @@
-package com.settlement.mss.batch.adapter.`in`.batch
+package com.settlement.batch.adapter.`in`.batch
 
-import com.settlement.mss.batch.application.port.`in`.*
-import com.settlement.mss.core.domain.model.Settlement
+import com.settlement.batch.application.port.`in`.*
+import com.settlement.core.domain.model.Settlement
 import org.springframework.batch.core.Job
 import org.springframework.batch.core.Step
 import org.springframework.batch.core.configuration.annotation.StepScope

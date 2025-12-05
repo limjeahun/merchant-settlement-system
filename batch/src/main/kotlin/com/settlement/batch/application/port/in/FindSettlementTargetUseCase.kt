@@ -1,4 +1,4 @@
-package com.settlement.mss.batch.application.port.`in`
+package com.settlement.batch.application.port.`in`
 
 import java.time.LocalDate
 
