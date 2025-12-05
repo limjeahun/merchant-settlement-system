@@ -36,12 +36,12 @@ spring:
         default_batch_fetch_size: 100
     open-in-view: false
 
-    # ===============================================
-    # mongodb
-    # ===============================================
+  # ===============================================
+  # mongodb
+  # ===============================================
+  data:
     mongodb:
       uri: mongodb://admin:1111@localhost:27017/settlement_report_db?authSource=admin
-
   # ===============================================
   # KAFKA
   # ===============================================
@@ -53,9 +53,9 @@ spring:
       value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
       properties:
         spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
-        spring.json.trusted.packages: "com.settlement.worker.*"
+        spring.json.trusted.packages: "com.settlement.*"
       auto-offset-reset: earliest # 처음 실행 시 이전 메시지부터 읽기
-      max-poll-records: 5
+      # max-poll-records: 5
 
   # ===============================================
   # External API Configuration
