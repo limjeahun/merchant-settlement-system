@@ -1,4 +1,4 @@
-package com.settlement.mss.worker.adapter.out.persistence.mongo.document
+package com.settlement.worker.adapter.out.persistence.mongo.document
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
