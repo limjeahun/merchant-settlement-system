@@ -1,6 +1,6 @@
-package com.settlement.mss.worker.application.port.out
+package com.settlement.worker.application.port.out
 
-import com.settlement.mss.core.domain.model.Settlement
+import com.settlement.core.domain.model.Settlement
 import java.time.LocalDate
 
 interface LoadSettlementByRangePort {

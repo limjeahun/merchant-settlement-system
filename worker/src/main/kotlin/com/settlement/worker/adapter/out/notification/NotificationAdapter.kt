@@ -1,8 +1,9 @@
 package com.settlement.worker.adapter.out.notification
 
-import com.settlement.worker.adapter.out.notification.dto.SlackMessageDto
+
 import com.settlement.worker.application.port.out.NotificationPort
 import com.settlement.common.extensions.getLogger
+import com.settlement.mss.worker.adapter.out.notification.dto.SlackMessageDto
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.MediaType
 import org.springframework.mail.SimpleMailMessage
