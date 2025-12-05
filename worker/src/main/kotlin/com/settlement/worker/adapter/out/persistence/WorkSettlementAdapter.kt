@@ -1,8 +1,9 @@
 package com.settlement.worker.adapter.out.persistence
 
 import com.settlement.core.infrastructure.persistence.jpa.mapper.SettlementMapper
-import com.settlement.core.infrastructure.persistence.jpa.repository.SettlementJpaRepository
+
 import com.settlement.core.domain.model.Settlement
+import com.settlement.core.infrastructure.persistence.jpa.repository.SettlementJpaRepository
 import com.settlement.worker.application.port.out.LoadSettlementByRangePort
 import org.springframework.stereotype.Component
 import java.time.LocalDate

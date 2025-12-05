@@ -1,7 +1,7 @@
-package com.settlement.mss.worker.adapter.out.persistence.mongo.mapper
+package com.settlement.worker.adapter.out.persistence.mongo.mapper
 
+import com.settlement.core.domain.model.SettlementReport
 import com.settlement.mss.worker.adapter.out.persistence.mongo.document.ReportDocument
-import com.settlement.mss.core.domain.model.SettlementReport
 import org.springframework.stereotype.Component
 
 @Component
